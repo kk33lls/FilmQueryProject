@@ -1,9 +1,11 @@
 package com.skilldistillery.filmquery.app;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.skilldistillery.filmquery.database.DatabaseAccessor;
 import com.skilldistillery.filmquery.database.DatabaseAccessorObject;
+import com.skilldistillery.filmquery.entities.Actor;
 import com.skilldistillery.filmquery.entities.Film;
 
 public class FilmQueryApp {
@@ -43,13 +45,19 @@ public class FilmQueryApp {
 			int userIdChoice = input.nextInt();
 
 			Film filmId = db.findFilmById(userIdChoice);
-
 			if (filmId == null) {
 				System.out.println("Sorry! The film id you put in doesn't exist!");
 				break;
 			} else {
 				System.out.println(filmId.getTitle() +  "| Language: " + filmId.getLanguage() + " | Released in " + filmId.getReleaseYear() + " | Film rating ("
-						+ filmId.getRating() + ") | Description: " + filmId.getDescription());
+						+ filmId.getRating() + ") \nDescription: " + filmId.getDescription());
+				
+				List<Actor>	actorList = db.findActorsByFilmId(userIdChoice);
+				System.out.println("Cast: ");
+				for (Actor actor : actorList) {
+					System.out.println(actor.getFirstName() + ", " + actor.getLastName());
+				}
+				
 				input.nextLine();
 			}
 			break;
@@ -57,14 +65,23 @@ public class FilmQueryApp {
 			System.out.println("Please enter the keyword for your search: ");
 			String keyword = input.nextLine();
 			
-			Film filmKey = db.findFilmByKeyword(keyword);
+			List<Film> filmKey = db.findFilmsByKeyword(keyword);
 			
 			if (filmKey == null) {
 				System.out.println("Sorry! The film keyword you put in doesn't exist!");
 				break;
 			} else {
-				System.out.println(filmKey.getTitle() + " | Released in " + filmKey.getReleaseYear() + " | Film rating ("
-						+ filmKey.getRating() + ") | Description: " + filmKey.getDescription());
+				for (Film film : filmKey) {
+					System.out.println(film.getTitle() + " | Released in " + film.getReleaseYear() + " | Film rating ("
+							+ film.getRating() + ")\nDescription: " + film.getDescription());
+				}
+				Film film = new Film();
+				int index = film.getId();
+				List<Actor>	actorList = db.findActorsByFilmId(index);
+				System.out.println("Cast: ");
+				for (Actor actor : actorList) {
+					System.out.println(actor.getFirstName() + ", " + actor.getLastName());
+				}
 				input.nextLine();
 				break;
 			}
@@ -75,7 +92,7 @@ public class FilmQueryApp {
 		default:
 			System.out.println("Oooooooh sorry that input has no value to me, try again!");
 		}
-		return false;
+		return true;
 	}
 
 	private void showMenu() {
