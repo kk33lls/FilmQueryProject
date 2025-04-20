@@ -22,4 +22,4 @@ The user is greeted then asked to select a menu option, the applciation takes th
 - Object relational mapping
 
  ## Lessons Learned
- Overall, wasn't too difficult, I had a couple hiccups here and there, this was our first assignement implementing mySQL/SQL with Java so I knew there was a likelihood of getting stuck in some places. Main thing learned was just repition with SQL commands/syntax. 
+ Overall, wasn't too difficult, I had a couple hiccups here and there, this was our first assignement implementing mySQL/SQL with Java so I knew there was a likelihood of getting stuck in some places. Main thing learned was just repitition with SQL commands/syntax. 
