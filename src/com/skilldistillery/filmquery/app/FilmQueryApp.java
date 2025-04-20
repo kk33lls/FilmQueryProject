@@ -78,8 +78,8 @@ public class FilmQueryApp {
 				Film film = new Film();
 				int index = film.getId();
 				List<Actor>	actorList = db.findActorsByFilmId(index);
-				System.out.println("Cast: ");
 				for (Actor actor : actorList) {
+					System.out.println("Cast: ");
 					System.out.println(actor.getFirstName() + ", " + actor.getLastName());
 				}
 				input.nextLine();
